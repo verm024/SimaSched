@@ -9,26 +9,51 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <style>
-	body{
-		font-size: 10px;
+	td, th{
+		border: 1px solid black !important;
+		padding-top: 5px !important;
+		padding-bottom: 0 !important;
+	}
+
+	th{
+		vertical-align: middle !important;
+		text-align: center;
+	}
+
+	table{
+		width: 80% !important;
+		margin-right: 10%;
+		margin-left: 10%;
+		margin-top: 50px;
+	}
+
+	@media screen and (max-width: 680px){
+		textarea{
+			width: 100% !important;
+			margin-left: 0 !important;
+			margin-right: 0 !important;
+		}
 	}
 </style>
 <body>
-	<div class="form-group">
-		<label for="get-source">Source code simaster</label>
-		<textarea class="form-control" id="get-source"></textarea>
+	<div class="container text-center">
+		<div class="form-group">
+			<label for="get-source" style="margin-top: 20px;">Source code simaster</label>
+			<textarea class="form-control" id="get-source" rows="10" style="width: 40%; margin-left: 30%; margin-right: 30%; height: 400px;"></textarea>
+		</div>
+		<button class="btn btn-primary" onClick="setJadwal()">
+			Proses
+		</button>
 	</div>
-	<button class="btn btn-primary" onClick="setJadwal()">
-		Tampilkan Jadwal
-	</button>
+	
 
 	<div id="test">
 		
 	</div>
 	<table class="table" id="table">
 		<thead>
-			<!-- <th>Hari|Jam|Ruang</th>
-			<th>Mata Kuliah</th> -->
+			<th>Mata Kuliah</th>
+			<th>Hari</th>
 		</thead>
 		<tbody id="jadwal-content">
 			
@@ -49,8 +74,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script>
-		// $("#test").hide();
-		// $("#table").hide();
+		$("#test").hide();
+		$("#table").hide();
 
 		function encode(r){
 			return r.replace(/[\x26\x0A\<>'"]/g,function(r){return"&#"+r.charCodeAt(0)+";"})
@@ -270,7 +295,7 @@
 			console.log(senin);
 			var content = "<tr><td>Senin</td><td>";
 			senin.forEach(function(){
-				var temp = senin[i].mata_kuliah + " | " + senin[i].jam + " | " + senin[i].ruang + "<br>";
+				var temp = "<p style='line-height: 1; margin-bottom: 5px;'><b>" + senin[i].mata_kuliah + "</b><br>" + "<span style='font-size: 12px;'>" + senin[i].jam + " | " + senin[i].ruang + "<br></span></p>";
 				if(content != ""){
 					content = content + temp;
 				}
@@ -282,7 +307,7 @@
 			content = content + "</td></tr><tr><td>Selasa</td><td>";
 			i = 0;
 			selasa.forEach(function(){
-				var temp = selasa[i].mata_kuliah + " | " + selasa[i].jam + " | " + selasa[i].ruang + "<br>";
+				var temp = "<p style='line-height: 1; margin-bottom: 5px;'><b>" + selasa[i].mata_kuliah + "</b><br>" + "<span style='font-size: 12px;'>" + selasa[i].jam + " | " + selasa[i].ruang + "<br></span></p>";
 				if(content != ""){
 					content = content + temp;
 				}
@@ -294,7 +319,7 @@
 			content = content + "</td></tr><tr><td>Rabu</td><td>";
 			i = 0;
 			rabu.forEach(function(){
-				var temp = rabu[i].mata_kuliah + " | " + rabu[i].jam + " | " + rabu[i].ruang + "<br>";
+				var temp = "<p style='line-height: 1; margin-bottom: 5px;'><b>" + rabu[i].mata_kuliah + "</b><br>" + "<span style='font-size: 12px;'>" + rabu[i].jam + " | " + rabu[i].ruang + "<br></span></p>";
 				if(content != ""){
 					content = content + temp;
 				}
@@ -306,7 +331,7 @@
 			content = content + "</td></tr><tr><td>Kamis</td><td>";
 			i = 0;
 			kamis.forEach(function(){
-				var temp = kamis[i].mata_kuliah + " | " + kamis[i].jam + " | " + kamis[i].ruang + "<br>";
+				var temp = "<p style='line-height: 1; margin-bottom: 5px;'><b>" + kamis[i].mata_kuliah + "</b><br>" + "<span style='font-size: 12px;'>" + kamis[i].jam + " | " + kamis[i].ruang + "<br></span></p>";
 				if(content != ""){
 					content = content + temp;
 				}
@@ -318,7 +343,7 @@
 			content = content + "</td></tr><tr><td>Jumat</td><td>";
 			i = 0;
 			jumat.forEach(function(){
-				var temp = jumat[i].mata_kuliah + " | " + jumat[i].jam + " | " + jumat[i].ruang + "<br>";
+				var temp = "<p style='line-height: 1; margin-bottom: 5px;'><b>" + jumat[i].mata_kuliah + "</b><br>" + "<span style='font-size: 12px;'>" + jumat[i].jam + " | " + jumat[i].ruang + "<br></span></p>";
 				if(content != ""){
 					content = content + temp;
 				}
@@ -330,6 +355,7 @@
 			content = content + "</td></tr>";
 			console.log(content);
 			table.innerHTML = content;
+			$("#table").show();
 		}
 	</script>
 </body>
