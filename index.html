@@ -60,6 +60,12 @@
 		</tbody>
 	</table>
 	
+	<div class="container text-center" style="margin-top: 50px;margin-bottom: 25px;">
+		<span class="text-center">
+			<i>created by: <a href="https://www.instagram.com/mnaufal.arkan/" target="_blank" style="text-decoration: none; color: black">Verm</a></i>
+		</span>
+	</div>
+	
 
 	
 
@@ -82,7 +88,10 @@
 		}
 
 		function setJadwal(){
-			var script = document.getElementById("get-source").value;
+			$("#jadwal-content").empty();
+			try{
+
+				var script = document.getElementById("get-source").value;
 			var split = script.split('<div class="table-light table-primary" style="overflow: auto;">');
 			var split2 = split[1].split('</div>');
 			var html = $.parseHTML(split2[0]);
@@ -96,7 +105,6 @@
 				var temp = $(td[2]).children();
 				matkul = temp[0].textContent;
 				var temp = $(td[6]).children();
-				console.log(i);
 				if(temp[0] != undefined){
 					var tempJadwal = td[6].outerHTML.split('<td nowrap="">');
 					tempJadwal = tempJadwal[1].split("</td>");
@@ -255,7 +263,6 @@
 			jadwal.sort(function(a, b){
 				return a.date.getTime() - b.date.getTime();
 			});
-			console.log(jadwal);
 			i = 1;
 			let senin = [];
 			let selasa = [];
@@ -292,7 +299,6 @@
 			});
 			var table = document.getElementById("jadwal-content")
 			i = 0;
-			console.log(senin);
 			var content = "<tr><td>Senin</td><td>";
 			senin.forEach(function(){
 				var temp = "<p style='line-height: 1; margin-bottom: 5px;'><b>" + senin[i].mata_kuliah + "</b><br>" + "<span style='font-size: 12px;'>" + senin[i].jam + " | " + senin[i].ruang + "<br></span></p>";
@@ -353,9 +359,12 @@
 				i++;
 			});
 			content = content + "</td></tr>";
-			console.log(content);
 			table.innerHTML = content;
 			$("#table").show();
+			}catch(error){
+				alert("Source code salah");
+				window.location = "index.html";
+			}
 		}
 	</script>
 </body>
