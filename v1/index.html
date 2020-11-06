@@ -1,54 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Simaster Scheduler</title>
 
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<!-- Main CSS Files -->
+	<link rel="stylesheet" href="css/main.css">
 </head>
-<style>
-	td, th{
-		border: 1px solid black !important;
-		padding-top: 5px !important;
-		padding-bottom: 0 !important;
-	}
 
-	th{
-		vertical-align: middle !important;
-		text-align: center;
-	}
-
-	table{
-		width: 80% !important;
-		margin-right: 10%;
-		margin-left: 10%;
-		margin-top: 50px;
-	}
-
-	@media screen and (max-width: 680px){
-		textarea{
-			width: 100% !important;
-			margin-left: 0 !important;
-			margin-right: 0 !important;
-		}
-	}
-</style>
 <body>
 	<div class="container text-center">
 		<div class="form-group">
 			<label for="get-source" style="margin-top: 20px;">Source code simaster</label>
-			<textarea class="form-control" id="get-source" rows="10" style="width: 40%; margin-left: 30%; margin-right: 30%; height: 400px;"></textarea>
+			<textarea class="form-control" id="get-source" rows="10"
+				style="width: 40%; margin-left: 30%; margin-right: 30%; height: 400px;"></textarea>
 		</div>
 		<button class="btn btn-primary" onClick="setJadwal()">
 			Proses
 		</button>
 	</div>
-	
 
 	<div id="test">
-		
+
 	</div>
 	<table class="table" id="table">
 		<thead>
@@ -56,316 +35,39 @@
 			<th>Hari</th>
 		</thead>
 		<tbody id="jadwal-content">
-			
+
 		</tbody>
 	</table>
-	
+
 	<div class="container text-center" style="margin-top: 50px;margin-bottom: 25px;">
 		<span class="text-center">
-			<i>created by: <a href="https://www.instagram.com/mnaufal.arkan/" target="_blank" style="text-decoration: none; color: black">Verm</a></i>
+			<i>created by: <a href="https://www.instagram.com/mnaufal.arkan/" target="_blank"
+					style="text-decoration: none; color: black">Verm</a></i>
 		</span>
 	</div>
-	
-
-	
 
 	<!-- Jquery -->
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
-	<!-- Popper js -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-
-	<!-- Bootstrap js -->
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-	<script>
-		$("#test").hide();
-		$("#table").hide();
-
-		function encode(r){
-			return r.replace(/[\x26\x0A\<>'"]/g,function(r){return"&#"+r.charCodeAt(0)+";"})
-		}
-
-		function setJadwal(){
-			$("#jadwal-content").empty();
-			try{
-
-				var script = document.getElementById("get-source").value;
-			var split = script.split('<div class="table-light table-primary" style="overflow: auto;">');
-			var split2 = split[1].split('</div>');
-			var html = $.parseHTML(split2[0]);
-			$("#test").append(html);
-			var tr = $("tr");
-			var matkul;
-			var jadwal = [];
-			let c = 1;
-			for(let i = 1; i<tr.length-1; i++){
-				let td = $(tr[i]).children();
-				var temp = $(td[2]).children();
-				matkul = temp[0].textContent;
-				var temp = $(td[6]).children();
-				if(temp[0] != undefined){
-					var tempJadwal = td[6].outerHTML.split('<td nowrap="">');
-					tempJadwal = tempJadwal[1].split("</td>");
-					tempJadwal = tempJadwal[0].split("<br>");
-					var j;
-					for(j = 0 ; j<tempJadwal.length; j++){
-						var tempJadwal2 = tempJadwal[j].split(",");
-						var tempJam2 = tempJadwal[j].split(" ");
-						var jam = tempJam2[1].split("-");
-						if(tempJadwal2[0] == "Senin"){
-							if(tempJam2[3] == "LAB.KOM" || tempJam2.length>4){
-								for(let k = 4; k<tempJam2.length; k++){
-									tempJam2[3] = tempJam2[3] + " " + tempJam2[k];
-								}
-							}
-							var date = new Date("2019-08-12 " + jam[0]);
-							jadwal[c] = {
-								mata_kuliah: matkul,
-								date: date,
-								ruang: tempJam2[3],
-								jam: tempJam2[1]
-							}
-							c++;
-						}else if(tempJadwal2[0] == "Selasa"){
-							if(tempJam2[3] == "LAB.KOM" || tempJam2.length>4){
-								for(let k = 4; k<tempJam2.length; k++){
-									tempJam2[3] = tempJam2[3] + " " + tempJam2[k];
-								}
-							}
-							var date = new Date("2019-08-13 " + jam[0]);
-							jadwal[c] = {
-								mata_kuliah: matkul,
-								date: date,
-								ruang: tempJam2[3],
-								jam: tempJam2[1]
-							}
-							c++;
-						}else if(tempJadwal2[0] == "Rabu"){
-							if(tempJam2[3] == "LAB.KOM" || tempJam2.length>4){
-								for(let k = 4; k<tempJam2.length; k++){
-									tempJam2[3] = tempJam2[3] + " " + tempJam2[k];
-								}
-							}
-							var date = new Date("2019-08-14 " + jam[0]);
-							jadwal[c] = {
-								mata_kuliah: matkul,
-								date: date,
-								ruang: tempJam2[3],
-								jam: tempJam2[1]
-							}
-							c++;
-						}else if(tempJadwal2[0] == "Kamis"){
-							if(tempJam2[3] == "LAB.KOM" || tempJam2.length>4){
-								for(let k = 4; k<tempJam2.length; k++){
-									tempJam2[3] = tempJam2[3] + " " + tempJam2[k];
-								}
-							}
-							var date = new Date("2019-08-15 " + jam[0]);
-							jadwal[c] = {
-								mata_kuliah: matkul,
-								date: date,
-								ruang: tempJam2[3],
-								jam: tempJam2[1]
-							}
-							c++;
-						}else if(tempJadwal2[0] == "Jumat"){
-							if(tempJam2[3] == "LAB.KOM" || tempJam2.length>4){
-								for(let k = 4; k<tempJam2.length; k++){
-									tempJam2[3] = tempJam2[3] + " " + tempJam2[k];
-								}
-							}
-							var date = new Date("2019-08-16 " + jam[0]);
-							jadwal[c] = {
-								mata_kuliah: matkul,
-								date: date,
-								ruang: tempJam2[3],
-								jam: tempJam2[1]
-							}
-							c++;
-						}
-					}
-				}
-				else{
-					var tempJadwal = td[6].textContent.split(",");
-					var tempJam = td[6].textContent.split(" ");
-					var jam = tempJam[1].split("-");
-					if(tempJadwal[0] == "Senin"){
-						if(tempJam[3] == "LAB.KOM" || tempJam.length>4){
-								for(let k = 4; k<tempJam.length; k++){
-									tempJam[3] = tempJam[3] + " " + tempJam[k];
-								}
-							}
-						var date = new Date("2019-08-12 " + jam[0]);
-						jadwal[c] = {
-							mata_kuliah: matkul,
-							date: date,
-							ruang: tempJam[3],
-							jam: tempJam[1]
-						}
-					}else if(tempJadwal[0] == "Selasa"){
-						if(tempJam[3] == "LAB.KOM" || tempJam.length>4){
-								for(let k = 4; k<tempJam.length; k++){
-									tempJam[3] = tempJam[3] + " " + tempJam[k];
-								}
-							}
-						var date = new Date("2019-08-13 " + jam[0]);
-						jadwal[c] = {
-							mata_kuliah: matkul,
-							date: date,
-							ruang: tempJam[3],
-							jam: tempJam[1]
-						}
-					}else if(tempJadwal[0] == "Rabu"){
-						if(tempJam[3] == "LAB.KOM" || tempJam.length>4){
-								for(let k = 4; k<tempJam.length; k++){
-									tempJam[3] = tempJam[3] + " " + tempJam[k];
-								}
-							}
-						var date = new Date("2019-08-14 " + jam[0]);
-						jadwal[c] = {
-							mata_kuliah: matkul,
-							date: date,
-							ruang: tempJam[3],
-							jam: tempJam[1]
-						}
-					}else if(tempJadwal[0] == "Kamis"){
-						if(tempJam[3] == "LAB.KOM" || tempJam.length>4){
-								for(let k = 4; k<tempJam.length; k++){
-									tempJam[3] = tempJam[3] + " " + tempJam[k];
-								}
-							}
-						var date = new Date("2019-08-15 " + jam[0]);
-						jadwal[c] = {
-							mata_kuliah: matkul,
-							date: date,
-							ruang: tempJam[3],
-							jam: tempJam[1]
-						}
-					}else if(tempJadwal[0] == "Jumat"){
-						if(tempJam[3] == "LAB.KOM" || tempJam.length>4){
-								for(let k = 4; k<tempJam.length; k++){
-									tempJam[3] = tempJam[3] + " " + tempJam[k];
-								}
-							}
-						var date = new Date("2019-08-16 " + jam[0]);
-						jadwal[c] = {
-							mata_kuliah: matkul,
-							date: date,
-							ruang: tempJam[3],
-							jam: tempJam[1]
-						}
-					}
-					c++;
-				}
-			}
-			jadwal.sort(function(a, b){
-				return a.date.getTime() - b.date.getTime();
-			});
-			i = 1;
-			let senin = [];
-			let selasa = [];
-			let rabu = [];
-			let kamis = [];
-			let jumat = [];
-			let cSenin = 0;
-			let cSelasa = 0;
-			let cRabu = 0;
-			let cKamis = 0;
-			let cJumat = 0;
-			jadwal.forEach(function(){
-				if(jadwal[i-1].date.getDay() == 1){
-					senin[cSenin] = jadwal[i-1];
-					cSenin++;
-				}
-				else if(jadwal[i-1].date.getDay() == 2){
-					selasa[cSelasa] = jadwal[i-1];
-					cSelasa++;
-				}
-				else if(jadwal[i-1].date.getDay() == 3){
-					rabu[cRabu] = jadwal[i-1];
-					cRabu++;
-				}
-				else if(jadwal[i-1].date.getDay() == 4){
-					kamis[cKamis] = jadwal[i-1];
-					cKamis++;
-				}
-				else if(jadwal[i-1].date.getDay() == 5){
-					jumat[cJumat] = jadwal[i-1];
-					cJumat++;
-				}
-				i++;
-			});
-			var table = document.getElementById("jadwal-content")
-			i = 0;
-			var content = "<tr><td>Senin</td><td>";
-			senin.forEach(function(){
-				var temp = "<p style='line-height: 1; margin-bottom: 5px;'><b>" + senin[i].mata_kuliah + "</b><br>" + "<span style='font-size: 12px;'>" + senin[i].jam + " | " + senin[i].ruang + "<br></span></p>";
-				if(content != ""){
-					content = content + temp;
-				}
-				else{
-					content = content + "<br>" + temp;
-				}
-				i++;
-			});
-			content = content + "</td></tr><tr><td>Selasa</td><td>";
-			i = 0;
-			selasa.forEach(function(){
-				var temp = "<p style='line-height: 1; margin-bottom: 5px;'><b>" + selasa[i].mata_kuliah + "</b><br>" + "<span style='font-size: 12px;'>" + selasa[i].jam + " | " + selasa[i].ruang + "<br></span></p>";
-				if(content != ""){
-					content = content + temp;
-				}
-				else{
-					content = content + "<br>" + temp;
-				}
-				i++;
-			});
-			content = content + "</td></tr><tr><td>Rabu</td><td>";
-			i = 0;
-			rabu.forEach(function(){
-				var temp = "<p style='line-height: 1; margin-bottom: 5px;'><b>" + rabu[i].mata_kuliah + "</b><br>" + "<span style='font-size: 12px;'>" + rabu[i].jam + " | " + rabu[i].ruang + "<br></span></p>";
-				if(content != ""){
-					content = content + temp;
-				}
-				else{
-					content = content + "<br>" + temp;
-				}
-				i++;
-			});
-			content = content + "</td></tr><tr><td>Kamis</td><td>";
-			i = 0;
-			kamis.forEach(function(){
-				var temp = "<p style='line-height: 1; margin-bottom: 5px;'><b>" + kamis[i].mata_kuliah + "</b><br>" + "<span style='font-size: 12px;'>" + kamis[i].jam + " | " + kamis[i].ruang + "<br></span></p>";
-				if(content != ""){
-					content = content + temp;
-				}
-				else{
-					content = content + "<br>" + temp;
-				}
-				i++;
-			});
-			content = content + "</td></tr><tr><td>Jumat</td><td>";
-			i = 0;
-			jumat.forEach(function(){
-				var temp = "<p style='line-height: 1; margin-bottom: 5px;'><b>" + jumat[i].mata_kuliah + "</b><br>" + "<span style='font-size: 12px;'>" + jumat[i].jam + " | " + jumat[i].ruang + "<br></span></p>";
-				if(content != ""){
-					content = content + temp;
-				}
-				else{
-					content = content + "<br>" + temp;
-				}
-				i++;
-			});
-			content = content + "</td></tr>";
-			table.innerHTML = content;
-			$("#table").show();
-			}catch(error){
-				alert("Source code salah");
-				window.location = "index.html";
-			}
-		}
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
 	</script>
+
+	<!-- Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+	</script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+	</script>
+
+	<!-- Main JS Files -->
+	<script src="js/index.js"></script>
 </body>
+
 </html>

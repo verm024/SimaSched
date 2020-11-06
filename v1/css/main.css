@@ -1,0 +1,26 @@
+td,
+th {
+  border: 1px solid black !important;
+  padding-top: 5px !important;
+  padding-bottom: 0 !important;
+}
+
+th {
+  vertical-align: middle !important;
+  text-align: center;
+}
+
+table {
+  width: 80% !important;
+  margin-right: 10%;
+  margin-left: 10%;
+  margin-top: 50px;
+}
+
+@media screen and (max-width: 680px) {
+  textarea {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
